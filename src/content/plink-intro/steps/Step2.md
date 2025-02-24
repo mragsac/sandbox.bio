@@ -1,21 +1,25 @@
 <script>
 import Execute from "$components/Execute.svelte";
+import Alert from "$components/Alert.svelte";
+import Link from "$components/Link.svelte";
 </script>
 
-Bedtools is a command-line tool. To bring up the help, just type <Execute command={"bedtools"} inline />
+PLINK is a command-line tool. To bring up the help, just type <Execute command={"plink"} inline />.
 
-As you can see, there are multiple "subcommands" and for `bedtools` to work you must tell it which subcommand you want to use.
+As you can see, `plink` has several flags that you can specify to evaluate your data! 
 
-Examples:
+But to use `plink`, you must always first specify the "inputs" to the `plink` command before adding any additional flags. The `plink` documentation has an in-depth description of the various acceptable input file formats on the <Link href="https://www.cog-genomics.org/plink/1.9/input">"Standard data input" page</Link>. 
 
-- <Execute command={"bedtools intersect"} inline />
-- <Execute command={"bedtools merge"} inline />
-- <Execute command={"bedtools subtract"} inline />
+Within this tutorial we'll be going through two of the most commonly-used formats: the human-readable `plink` file format (e.g., `*.map` and `*.ped` paired files) and the `plink` binary file format (e.g., `*.bed`, `*.bim`, `*.fam` triplet files).
 
-What version am I using?:
+You can load the `*.map` and `*.ped` paired files with `--file INPUT_FILE_BASENAME`. Try using the following command to load in our example files: <Execute command={"plink --file extra"} inline />.
 
-- <Execute command={"bedtools --version"} inline />
+Loading in `plink` binary files is similar, except we specify `--bfile INPUT_FILE_BASENAME` instead of the `--file` flag. Try using this command to load in our example files: <Execute command={"plink --bfile extra"} inline />.
 
-How can I get more help?:
+<Alert>
+While we can access the information within `*.ped` and `*.map` files using `plink`, this format is not the native format that should be used for `plink` (version 1.9) and will result in commands running inefficiently. It's recommended that you convert these files to the binary file format (e.g., `*.bed`, `*.bim`, `*.fam`) before performing any operations.
+</Alert>
 
-- <Execute command={"bedtools --contact"} inline />
+You can also bring up the version information with <Execute command={"plink --version"} inline />.
+
+And if you were interested in more detailed help regarding `plink`'s parameters, you can use the command <Execute command={"plink --help"} inline />.
