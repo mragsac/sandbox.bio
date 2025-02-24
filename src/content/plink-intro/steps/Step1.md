@@ -1,36 +1,32 @@
 <script>
-import Execute from "$components/Execute.svelte";
-import IGVModal from "$components/igv/IGVModal.svelte";
 import Link from "$components/Link.svelte";
-
-let isOpen = false;
-let igvOptions = {
-	locus: "chr1:262,932-512,931",
-	tracks: [
-		{ url: "/data/bedtools-intro/cpg.bed", name: "CpG islands" },
-		{ url: "/data/bedtools-intro/exons.bed", name: "RefSeq Exons" },
-		{ url: "/data/bedtools-intro/gwas.bed", name: "GWAS SNPs" },
-		{ url: "/data/bedtools-intro/hesc.chromHmm.bed", name: "chromHMM Predictions" }
-	]
-};
+import Execute from "$components/Execute.svelte";
+import Alert from "$components/Alert.svelte";
 </script>
 
-We preloaded data from <Link href="https://science.sciencemag.org/content/337/6099/1190">Maurano et al.</Link> into your sandbox. Let's take a look at what files we now have:
+For this tutorial, we preloaded data from `plink`'s official <Link href="https://science.sciencemag.org/content/337/6099/1190">teaching resources</Link> linked in the documentation. Typically, the files used in `plink` are quite large. Luckily, this dataset is a small fraction of the size you would expect to handle for one's own projects!
 
-Type <Execute command={"ls"} inline /> in the command line.
+Let's start out by taking a look at what files we have in our directory to play with using the <Execute command={"ls"} inline /> command. Your directory should contain two files: an `extra.map` and an `extra.ped` file. 
 
-Your directory contains 7 `BED` files and 1 genome file. Three of these files (those starting with `f` for "fetal tissue") reflect Dnase I hypersensitivity sites measured in different fetal tissue samples.
+Next, use the <Execute command={"head extra.map"} inline /> and <Execute command={"head extra.ped"} inline /> commands to preview the `extra.map` and `extra.ped` files, respectively.
 
-In order to have a rough sense of the remaining `.bed` files, let's load them into IGV: <button class="btn btn-sm btn-primary" on:click={() => isOpen = !isOpen}>Launch IGV</button>
+The `*.map` and `*.ped` files are human-readable versions of the `plink` file format and are always found together as a pair with the same basename.
 
-<IGVModal options={igvOptions} bind:isOpen={isOpen}>
-	<span slot="after">
-		Note that:
+<Alert>
+    A `*.map` file contains human-readable information about each variant we have genotyping data for. These files contain several columns, including:
 
-    	* `cpg.bed` represents CpG islands in the human genome
-    	* `exons.bed` represents RefSeq exons from human genes
-    	* `gwas.bed` represents human disease-associated SNPs that were identified in genome-wide association studies (GWAS)
-    	* `hesc.chromHmm.bed` represents the predicted function (by chromHMM) of each interval in the genome of a human embryonic stem cell based upon ChIP-seq experiments from ENCODE
-    </span>
+        Chromosome
+        Marker ID
+        Genetic distance
+        Physical position
 
-</IGVModal>
+    On the other hand, `*.ped` files represent the "pedigree" information for the genotyping data and thus contain the following columns: 
+    
+        Family ID
+        Sample ID
+        Paternal ID
+        Maternal ID
+        Sex (1=male; 2=female; other=unknown)
+        Affection (0=unknown; 1=unaffected; 2=affected)
+        Genotypes (space or tab separated, 2 for each marker. 0=missing)
+</Alert>

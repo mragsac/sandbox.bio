@@ -8,6 +8,7 @@ import { config as samtoolsIntro } from "$content/samtools-intro/config.js";
 import { config as jqIntro } from "$content/jq-intro/config.js";
 import { config as awkIntro } from "$content/awk-intro/config.js";
 import { config as fastpIntro } from "$content/fastp-intro/config.js";
+import { config as plinkIntro } from "$content/plink-intro/config.js";
 import { config as dnaSecrets } from "$content/dna-secrets/config.js";
 import { config as viralAmplicon } from "$content/viral-amplicon/config.js";
 import { config as debuggingPuzzles } from "$content/debugging-puzzles/config.js";
@@ -64,6 +65,7 @@ export const tutorials = readable([
 	datepro6,
 	datepro7,
 	datepro8,
+	plinkIntro,
 	// Template tutorial
 	_template
 ]);
@@ -94,7 +96,7 @@ export const categories = readable([
 	{
 		name: "Data analysis",
 		icon: "cpu-fill",
-		tutorials: [bowtie2Intro, blastIntro, jellyfishIntro, dnaSecrets, viralAmplicon, ska2Intro, debuggingPuzzles]
+		tutorials: [bowtie2Intro, blastIntro, jellyfishIntro, dnaSecrets, viralAmplicon, ska2Intro, debuggingPuzzles, plinkIntro]
 	}
 ]);
 
